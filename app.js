@@ -5,7 +5,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const app = express();
 const port = 3000;
-const keySession = 440457;
+const keySession = "440457";
 const user = {
     username: "Thinh",
     password: "440"
@@ -50,7 +50,18 @@ app.post('/login', passport.authenticate('local', {
 
 passport.use( new LocalStrategy( (username, password, done) => {
     console.log(`username:::${username}, pass:::${password}`);
+    
+    if (username === user.username && password === user.password){
+        return done(null, {
+            username,
+            password,
+            active: true
+        })
+    } 
+    done(null, false)
 }))
+
+passport.serializeUser((user, done) => done(null, user.username))
 
 app.listen(port, () => {
     console.log(`is Okay at ${port}`);
