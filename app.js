@@ -6,6 +6,10 @@ const session = require('express-session');
 const app = express();
 const port = 3000;
 const keySession = 440457;
+const user = {
+    username: "Thinh",
+    password: "440"
+}
 
 app.use(express.json());
 
@@ -30,7 +34,10 @@ app.get('/status', (req, res) => {
     })
 })
 
-app.post('/login', (req, res) => {
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/protected',
+    failureRedirect: '/login'
+}), (req, res) => {
     try {
         // res.send('login successfully');
         res.send(req.body);
@@ -40,6 +47,10 @@ app.post('/login', (req, res) => {
         })
     }
 })
+
+passport.use( new LocalStrategy( (username, password, done) => {
+    console.log(`username:::${username}, pass:::${password}`);
+}))
 
 app.listen(port, () => {
     console.log(`is Okay at ${port}`);
