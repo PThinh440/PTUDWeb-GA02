@@ -58,10 +58,22 @@ passport.use( new LocalStrategy( (username, password, done) => {
             active: true
         })
     } 
-    done(null, false)
+    done(null, false);
 }))
 
-passport.serializeUser((user, done) => done(null, user.username))
+passport.serializeUser((user, done) => done(null, user.username));
+
+passport.deserializeUser((username, done) => {
+    if (username === user.username){
+        return done(null, {
+            username,
+            active: true
+        })
+    }
+    done(null, false);
+})
+
+
 
 app.listen(port, () => {
     console.log(`is Okay at ${port}`);
