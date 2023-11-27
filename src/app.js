@@ -3,6 +3,8 @@ const express = require('express');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
+
+const router = express.Router;
 const app = express();
 const port = 3000;
 const keySession = "440457";
