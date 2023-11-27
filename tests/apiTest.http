@@ -10,3 +10,8 @@ Content-Type: application/json
 ### GET
 
 GET http://localhost:3000/status
+
+
+### protected
+
+GET http://localhost:3000/protected

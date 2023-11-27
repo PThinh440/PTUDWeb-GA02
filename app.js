@@ -34,6 +34,19 @@ app.get('/status', (req, res) => {
     })
 })
 
+app.get('/protected', (req, res) => {
+    if (req.isAuthenticated()){
+        return res.status(200).json({
+            status: 'sucess',
+            message: 'protected'
+        })
+    }
+    res.status(200).json({
+        status: 'failed',
+        message: 'failed'
+    })
+})
+
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/protected',
     failureRedirect: '/login'
